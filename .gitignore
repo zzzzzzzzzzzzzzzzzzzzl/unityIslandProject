@@ -1,0 +1,39 @@
+gnore Library folder which contains imported assets and editor settings.
+Library/
+
+# Ignore Temp folder which contains intermediate and temporary files.
+Temp/
+
+# Ignore project-specific settings.
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.pdb
+*.opendb
+
+# Ignore build-specific files.
+*.apk
+*.unitypackage
+
+# Ignore custom build settings.
+/[Bb]uilds/
+
+# Ignore default play mode settings file.
+ProjectSettings/ProjectSettings.asset
+
+# Ignore auto-generated Visual Studio files.
+.vscode/
+
+# Ignore macOS icon file.
+.DS_Store
+
+# Ignore temporary files created by macOS.
+*.swp
+
+# Ignore Android build files.
+Build/
+Assets/Plugins/Android/
+
