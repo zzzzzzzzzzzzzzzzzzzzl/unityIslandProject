@@ -13,7 +13,7 @@ public class player : MonoBehaviour
     Chunk[,] surroundingChunks;
     Tile[,] surroundingTiles;
     Tile tile;
-    Inventory inv;
+    public Inventory inv = new Inventory(4);
     Dictionary<(int x, int y), Chunk> chunkDict;
     public float speed = .2f;
 

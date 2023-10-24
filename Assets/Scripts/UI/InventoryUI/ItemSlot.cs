@@ -24,22 +24,20 @@ public class ItemSlot : MonoBehaviour
         RawImage rawImage = gameObject.GetComponent<RawImage>();
         rawImage.texture.filterMode = FilterMode.Point;
 
-        pngTexture();
+        // pngTexture();
     }
 
-    public void updateInventoryUI() { }
-
-    Texture2D pngTexture()
+    public void UpdatePNGTexture(Item item)
     {
         Texture2D texture = new Texture2D(1, 1);
-        int ran = Random.Range(1, 1000);
-        byte[] pngBytes = File.ReadAllBytes($"Assets/Sprites/sprite ({ran}).png");
+
+        byte[] pngBytes = File.ReadAllBytes(item.ItemData.spritePath);
         if (texture.LoadImage(pngBytes))
         {
             RawImage rawImage = itemSprite.GetComponent<RawImage>();
+            rawImage.color = Color.white;
             texture.filterMode = FilterMode.Point;
             rawImage.texture = texture;
         }
-        return texture;
     }
 }

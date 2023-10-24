@@ -15,8 +15,7 @@ public class InventoryUI : MonoBehaviour
 
     public void Start()
     {
-        // inv = transform.parent.transform.GetComponent<Inventory>();
-        inv = new Inventory();
+        inv = transform.parent.parent.GetComponent<player>().inv;
         int x = inv.items.GetLength(0);
         int y = inv.items.GetLength(1);
         itemSlot = new GameObject[x, y];
@@ -27,6 +26,10 @@ public class InventoryUI : MonoBehaviour
             for (int j = 1; j < y; j++) //row 0 of y will be our hotbar
             {
                 itemSlot[i, j] = Instantiate(itemSlotPrefab);
+                if (inv.items[i, j] != null)
+                {
+                    itemSlot[i, j].GetComponent<ItemSlot>().UpdatePNGTexture(inv.items[i, j]);
+                }
                 itemSlot[i, j].transform.SetParent(transform);
             }
         }

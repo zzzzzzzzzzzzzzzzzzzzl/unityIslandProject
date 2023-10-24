@@ -20,7 +20,8 @@ public class hotbar : MonoBehaviour
 
     public void Start()
     {
-        inv = new Inventory();
+        // Debug.Log(transform.parent.parent.parent.name);
+        inv = transform.parent.parent.parent.GetComponent<player>().inv;
         int x = inv.items.GetLength(0);
         hotbarSlot = new GameObject[x];
         layout.initInventory(transform.gameObject, x, 1);
@@ -28,7 +29,10 @@ public class hotbar : MonoBehaviour
         for (int i = 0; i < x; i++)
         {
             hotbarSlot[i] = Instantiate(hotbarSlotPrefab);
-
+            if (inv.items[0, i] != null)
+            {
+                hotbarSlot[i].GetComponent<ItemSlot>().UpdatePNGTexture(inv.items[0, i]);
+            }
             hotbarSlot[i].transform.SetParent(transform);
         }
         cursor.GetComponent<RectTransform>().sizeDelta = new Vector2(ItemSlot.size, ItemSlot.size);
