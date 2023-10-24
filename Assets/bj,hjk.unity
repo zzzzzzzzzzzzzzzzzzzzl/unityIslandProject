@@ -431,6 +431,30 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.3445621
       objectReference: {fileID: 0}
+    - target: {fileID: 1651670316225248473, guid: 02692ff2455ffbc4ca1dfccb74ddf352, type: 3}
+      propertyPath: m_Spacing.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1651670316225248473, guid: 02692ff2455ffbc4ca1dfccb74ddf352, type: 3}
+      propertyPath: m_Spacing.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524629927282459684, guid: 02692ff2455ffbc4ca1dfccb74ddf352, type: 3}
+      propertyPath: itemSlotPrefab
+      value: 
+      objectReference: {fileID: 3365566837885304594, guid: ab0d4a4953578c143a285775726c7acd, type: 3}
+    - target: {fileID: 2524629927282459684, guid: 02692ff2455ffbc4ca1dfccb74ddf352, type: 3}
+      propertyPath: highlightColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524629927282459684, guid: 02692ff2455ffbc4ca1dfccb74ddf352, type: 3}
+      propertyPath: highlightColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524629927282459684, guid: 02692ff2455ffbc4ca1dfccb74ddf352, type: 3}
+      propertyPath: highlightColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2744117681347817492, guid: 02692ff2455ffbc4ca1dfccb74ddf352, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -511,6 +535,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4621107770998153909, guid: 02692ff2455ffbc4ca1dfccb74ddf352, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4621107770998153909, guid: 02692ff2455ffbc4ca1dfccb74ddf352, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4914750698820723991, guid: 02692ff2455ffbc4ca1dfccb74ddf352, type: 3}
       propertyPath: m_Name
       value: ui
@@ -549,10 +581,11 @@ PrefabInstance:
       objectReference: {fileID: 891795607}
     - target: {fileID: 7233401662584973078, guid: 02692ff2455ffbc4ca1dfccb74ddf352, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8234986154686614846, guid: 02692ff2455ffbc4ca1dfccb74ddf352, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7233401662584973078, guid: 02692ff2455ffbc4ca1dfccb74ddf352, type: 3}

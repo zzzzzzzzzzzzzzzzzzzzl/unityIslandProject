@@ -20,21 +20,17 @@ public class InventoryUI : MonoBehaviour
         int x = inv.items.GetLength(0);
         int y = inv.items.GetLength(1);
         itemSlot = new GameObject[x, y];
-        transform.GetComponent<RectTransform>().sizeDelta = new Vector2(x * ItemSlot.size, y * ItemSlot.size);
-        transform.GetComponent<GridLayoutGroup>().cellSize = new Vector2(ItemSlot.frame, ItemSlot.frame);
+        layout.initInventory(transform.gameObject, x, y);
 
         for (int i = 0; i < x; i++)
         {
-            for (int j = 1; j < y; j++)//row 0 of y will be our hotbar
+            for (int j = 1; j < y; j++) //row 0 of y will be our hotbar
             {
                 itemSlot[i, j] = Instantiate(itemSlotPrefab);
                 itemSlot[i, j].transform.SetParent(transform);
             }
         }
     }
-    public void updateInventoryUI()
-    {
 
-    }
-
+    public void updateInventoryUI() { }
 }

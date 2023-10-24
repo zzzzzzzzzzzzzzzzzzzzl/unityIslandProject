@@ -10,22 +10,65 @@ public class hotbar : MonoBehaviour
 {
     Inventory inv;
     public GameObject player;
-    public GameObject itemSlotPrefab;
-    GameObject[,] itemSlot;
+    public GameObject hotbarSlotPrefab;
+    GameObject[] hotbarSlot;
+    public GameObject cursor;
+
+    public static Color nonhighlightColor = new Color(0, 0, 0, 0);
+
+    int selected = 1;
 
     public void Start()
     {
-
         inv = new Inventory();
         int x = inv.items.GetLength(0);
-        int y = inv.items.GetLength(1);
-        itemSlot = new GameObject[x, y];
-        transform.GetComponent<RectTransform>().sizeDelta = new Vector2(x * ItemSlot.size, ItemSlot.size);
+        hotbarSlot = new GameObject[x];
+        layout.initInventory(transform.gameObject, x, 1);
+
         for (int i = 0; i < x; i++)
         {
-            itemSlot[i, 0] = Instantiate(itemSlotPrefab);
-            itemSlot[i, 0].transform.SetParent(transform);
+            hotbarSlot[i] = Instantiate(hotbarSlotPrefab);
+
+            hotbarSlot[i].transform.SetParent(transform);
         }
-        transform.GetComponent<GridLayoutGroup>().cellSize = new Vector2(ItemSlot.frame, ItemSlot.frame);
+        cursor.GetComponent<RectTransform>().sizeDelta = new Vector2(ItemSlot.size, ItemSlot.size);
+        updateHotbarCursor();
+    }
+
+    public void Update()
+    {
+        int numdown = InputManager.getKeyNumber();
+        if (numdown != 10)
+        {
+            selected = numdown;
+        }
+        handleScrollWheel();
+        updateHotbarCursor();
+    }
+
+    void updateHotbarCursor()
+    {
+        if (selected != 10)
+        {
+            if (selected < 1 + transform.childCount) //hotbarSlot.Length)
+                cursor.GetComponent<RectTransform>().position = transform
+                    .GetChild(selected - 1) //-1 beacuse of array index
+                    .GetComponent<RectTransform>()
+                    .position;
+        }
+    }
+
+    void handleScrollWheel()
+    {
+        int input = -(int)(InputManager.navigateHotbar() * 10);
+        selected += input;
+        if (selected < 1)
+        {
+            selected = transform.childCount;
+        }
+        if (selected > transform.childCount)
+        {
+            selected = 1;
+        }
     }
 }

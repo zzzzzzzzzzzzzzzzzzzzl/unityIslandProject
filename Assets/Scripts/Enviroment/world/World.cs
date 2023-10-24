@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class World : MonoBehaviour
 {
-    public int load = 8;
+    public int load = 2;
     public static int chunkSize = 8;
     public static float height = 128;
     public GameObject imageObject;

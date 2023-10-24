@@ -25,7 +25,7 @@ public class Chunk
     {
         float[][] perlinNoise = PerlinNoise.GeneratePerlinNoise(World.chunkSize, x, y, 10);
 
-        tileArr = new Tile[World.chunkSize,World.chunkSize];
+        tileArr = new Tile[World.chunkSize, World.chunkSize];
         for (int i = 0; i < World.chunkSize; i++)
         {
             for (int j = 0; j < World.chunkSize; j++)
@@ -34,7 +34,7 @@ public class Chunk
 
                 float h = getHeight(x + j, i + y);
                 n += h;
-                tileArr[i,j] = new Tile(i + y, j + x, n, parent);
+                tileArr[i, j] = new Tile(i + y, j + x, n, parent);
             }
         }
         return tileArr;
@@ -43,14 +43,14 @@ public class Chunk
     public List<Vector3> dirtList()
     {
         List<Vector3> list = new List<Vector3>();
-        for (int i=0;i<tileArr.GetLength(0);i++)
+        for (int i = 0; i < tileArr.GetLength(0); i++)
         {
-        for (int j=0;j<tileArr.GetLength(1);j++)
+            for (int j = 0; j < tileArr.GetLength(1); j++)
             {
-                if (tileArr[i,j].tileData.type == "grass")
+                if (tileArr[i, j].tileData.type == "grass")
                 {
-                    list.Add(tileArr[i,j].pos);
-                    tileArr[i,j].gameObject.GetComponent<Renderer>().material.color = Color.blue;
+                    list.Add(tileArr[i, j].pos);
+                    tileArr[i, j].gameObject.GetComponent<Renderer>().material.color = Color.blue;
                 }
             }
         }
@@ -59,12 +59,12 @@ public class Chunk
 
     public void highlight(Color colour)
     {
-     for (int i=0;i<tileArr.GetLength(0);i++)
+        for (int i = 0; i < tileArr.GetLength(0); i++)
         {
-        for (int j=0;j<tileArr.GetLength(0);j++)
+            for (int j = 0; j < tileArr.GetLength(0); j++)
             {
-                tileArr[i,j].gameObject.GetComponent<Renderer>().material.color =
-                    tileArr[i,j].tileData.color + colour;
+                tileArr[i, j].gameObject.GetComponent<Renderer>().material.color =
+                    tileArr[i, j].tileData.color + colour;
             }
         }
     }

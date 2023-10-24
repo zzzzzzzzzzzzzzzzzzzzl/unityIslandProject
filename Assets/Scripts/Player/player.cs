@@ -12,10 +12,9 @@ public class player : MonoBehaviour
     Chunk chunk;
     Chunk[,] surroundingChunks;
     Tile[,] surroundingTiles;
-    Inventory inv;
     Tile tile;
+    Inventory inv;
     Dictionary<(int x, int y), Chunk> chunkDict;
-
     public float speed = .2f;
 
     void Start()
@@ -29,27 +28,31 @@ public class player : MonoBehaviour
 
     void Update()
     {
-        float Chunkx = transform.position.x / World.chunkSize;
-        float Chunkz = transform.position.z / World.chunkSize;
+        float chunkX = transform.position.x / World.chunkSize;
+        float chunkZ = transform.position.z / World.chunkSize;
 
-        float Tilex = transform.position.x % World.chunkSize; //should be optomized
-        float Tilez = transform.position.z % World.chunkSize; //might actually be ok
+        float x = transform.position.x % World.chunkSize; //should be optomized
+        float z = transform.position.z % World.chunkSize; //might actually be ok
 
-        surroundingChunks = Entity.surroundingChunks(chunkDict, Chunkx, Chunkz);
+        if (surroundingChunks != null)
+        {
+            for (int i = 0; i < surroundingChunks.GetLength(0); i++)
+            {
+                for (int j = 0; j < surroundingChunks.GetLength(1); j++)
+                {
+                    surroundingChunks[i, j].highlight(new Color(0, 0, 0));
+                }
+            }
+        }
+        surroundingChunks = Entity.surroundingChunks(chunkDict, chunkX, chunkZ);
+        chunk = surroundingChunks[1, 1];
         surroundingTiles = Entity.surroundingTiles(surroundingChunks);
 
-        if (chunk != null)
-        {
-            chunk.highlight(new Color(0, 0, 0));
-        }
+        tile = surroundingTiles[(int)(x) + World.chunkSize, (int)(z) + World.chunkSize];
 
-        chunk = surroundingChunks[1, 1];
-        tile = surroundingTiles[(int)(Tilex) + World.chunkSize, (int)(Tilez) + World.chunkSize];
-        // tile.gameObject.GetComponent<Renderer>().material.color = new Color(1f, 0, 0);
-        // highlightSurroundingChunks();
+        InputManager.interactWithTile(tile);
         movePlayer();
         chunk.highlight(Color.red);
-        InputManager.interactWithTile(tile);
     }
 
     void movePlayer()
@@ -69,22 +72,6 @@ public class player : MonoBehaviour
         )
         {
             transform.position += input;
-        }
-    }
-
-    void interactWithBlock() { }
-
-    void highlightSurroundingChunks(Color color)
-    {
-        if (surroundingChunks != null)
-        {
-            for (int i = 0; i < surroundingChunks.GetLength(0); i++)
-            {
-                for (int j = 0; j < surroundingChunks.GetLength(1); j++)
-                {
-                    surroundingChunks[i, j].highlight(color);
-                }
-            }
         }
     }
 

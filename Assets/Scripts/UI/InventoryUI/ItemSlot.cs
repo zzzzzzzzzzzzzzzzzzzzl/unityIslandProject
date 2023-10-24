@@ -8,14 +8,14 @@ using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour
 {
-
-    public static int sprite = 64;//32 is sprite size+2 is frame size+4 for spacing
+    public static int sprite = 64; //32 is sprite size+2 is frame size+4 for spacing
     public static int frame = sprite + 2;
     public static int spacing = 4;
     public static int size = frame + spacing;
-    // public static int size = 64 + 2 + 4;//32 is sprite size+2 is frame size+4 for spacing
 
+    // public static int size = 64 + 2 + 4;//32 is sprite size+2 is frame size+4 for spacing
     public GameObject itemSprite;
+
     public void Start()
     {
         transform.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(frame, frame);
@@ -26,10 +26,8 @@ public class ItemSlot : MonoBehaviour
 
         pngTexture();
     }
-    public void updateInventoryUI()
-    {
 
-    }
+    public void updateInventoryUI() { }
 
     Texture2D pngTexture()
     {
@@ -41,7 +39,6 @@ public class ItemSlot : MonoBehaviour
             RawImage rawImage = itemSprite.GetComponent<RawImage>();
             texture.filterMode = FilterMode.Point;
             rawImage.texture = texture;
-
         }
         return texture;
     }
