@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-public class Inventory{
+public class Inventory : MonoBehaviour
+{
 
-    public Dictionary<int[,],Item> inv=new Dictionary<int[,],Item>();
-    public Inventory(){
-
+    public Item[,] items;
+    public int size;
+    public Inventory(int setSize = 7)
+    {
+        size = setSize;
+        items = new Item[size, size];
     }
 }

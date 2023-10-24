@@ -7,33 +7,31 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    mapUI mapUI;
-    public GameObject map;
-    
-    InventoryUI invUI;
-    public GameObject inv;
+    public GameObject mapUI;
+    public GameObject invUI;
     public GameObject player;
 
-    GameObject active=null;
+    GameObject active = null;
     Dictionary<(int x, int y), Chunk> chunkDict;
 
     public void init(Dictionary<(int x, int y), Chunk> newChunkDict)
     {
         chunkDict = newChunkDict;
-        mapUI = new mapUI(map, chunkDict, player);
+
     }
 
     void Update()
     {
-        active=InputManager.activeUI(active,map, "m");
-        if (map.activeSelf)
+        active = InputManager.activeUI(active, mapUI, "m");
+        if (mapUI.activeSelf)
         {
-            mapUI.updateMapImage(chunkDict);
+            // mapUI.updateMapImage(chunkDict);
         }
-         active= InputManager.activeUI(active,inv, "e");
+        active = InputManager.activeUI(active, invUI, "e");
     }
 
-    static void switchActiveUI(GameObject active,GameObject activate){
+    static void switchActiveUI(GameObject active, GameObject activate)
+    {
         active.SetActive(false);
         activate.SetActive(true);
     }

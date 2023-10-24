@@ -5,35 +5,79 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class Item{
+public class Item
+{
     ItemData ItemData;
-    Item(string key){
-        ItemData=ItemIndex.index[key];
+    public Item(string key)
+    {
+        ItemData = ItemIndex.index[key];
     }
 }
 
 public class ItemData : MonoBehaviour
 {
     public string type;
-    public Color color;
-    public bool walkable;
+    public string spritePath;
 }
 
-public class ItemIndex : MonoBehaviour
+public static class ItemIndex
 {
     public static Dictionary<string, ItemData> index = new Dictionary<string, ItemData>
     {
         ["seeds"] = new ItemData
         {
             type = "seeds",
-            color = new Color(.33f, 0.676f, 0.32f),
-            walkable = true
+            spritePath = "Assets/Sprites/sprite (1).png"
         },
         ["grain"] = new ItemData
         {
-            type = "water",
-            color = new Color(.23f, 0.376f, 0.62f),
-            walkable = false
-        }
+            type = "grain",
+            spritePath = "Assets/Sprites/sprite (2).png"
+        },
+        ["rye"] = new ItemData
+        {
+            type = "rye",
+            spritePath = "Assets/Sprites/sprite (3).png"
+        },
+        ["hoe"] = new ItemData
+        {
+            type = "hoe",
+            spritePath = "Assets/Sprites/sprite (4).png"
+        },
+        ["bass"] = new ItemData
+        {
+            type = "bass",
+            spritePath = "Assets/Sprites/sprite (5).png"
+        },
+        ["trout"] = new ItemData
+        {
+            type = "trout",
+            spritePath = "Assets/Sprites/sprite (6).png"
+        },
+        ["pike"] = new ItemData
+        {
+            type = "pike",
+            spritePath = "Assets/Sprites/sprite (7).png"
+        },
+        ["coal"] = new ItemData
+        {
+            type = "coal",
+            spritePath = "Assets/Sprites/sprite (8).png"
+        },
+        ["grass"] = new ItemData
+        {
+            type = "grass",
+            spritePath = "Assets/Sprites/sprite (9).png"
+        },
+        ["dryGrass"] = new ItemData
+        {
+            type = "dryGrass",
+            spritePath = "Assets/Sprites/sprite (10).png"
+        },
+        ["jar"] = new ItemData
+        {
+            type = "jar",
+            spritePath = "Assets/Sprites/sprite (11).png"
+        },
     };
 }

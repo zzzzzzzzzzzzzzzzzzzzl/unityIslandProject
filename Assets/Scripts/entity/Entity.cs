@@ -5,15 +5,11 @@ using UnityEngine;
 
 public class Entity
 {
-    public static Tile[][] surroundingTiles(Chunk[][] chunkArr)
+    public static Tile[,] surroundingTiles(Chunk[,] chunkArr)
     {//nice; this took so long
         int matrixSize = World.chunkSize;
         int combinedSize = matrixSize * 3;
-        Tile[][] comnbinedMatrix = new Tile[combinedSize][];
-        for (int i = 0; i < combinedSize; i++)
-        {
-            comnbinedMatrix[i] = new Tile[combinedSize];
-        }
+        Tile[,] comnbinedMatrix = new Tile[combinedSize,combinedSize];
         for (int i = 0; i < 3; i++)
         {
             int sx = i * matrixSize;
@@ -24,7 +20,7 @@ public class Entity
                 {
                     for (int y = 0; y < matrixSize; y++)
                     {
-                        comnbinedMatrix[x + sx][y + sy] = chunkArr[j][i].tileArr[x][y];
+                        comnbinedMatrix[x + sx,y + sy] = chunkArr[j,i].tileArr[x,y];
                     }
                 }
             }
@@ -32,13 +28,13 @@ public class Entity
         return comnbinedMatrix;
     }
 
-    public static Chunk[][] surroundingChunks(
+    public static Chunk[,] surroundingChunks(
         Dictionary<(int x, int y), Chunk> chunkDict,
         float x,
         float z
     )
     {
-        Chunk[][] chunkArr = new Chunk[3][];
+        Chunk[,] chunkArr = new Chunk[3,3];
         if (x < 1)
         {
             x--;
@@ -49,11 +45,11 @@ public class Entity
         }
         for (int i = 0; i < 3; i++)
         {
-            chunkArr[i] = new Chunk[3];
+            // chunkArr[i] = new Chunk[3];
 
             for (int j = 0; j < 3; j++)
             {
-                chunkArr[i][j] = chunkDict[(i + (int)z - 1, j + (int)x - 1)];
+                chunkArr[i,j] = chunkDict[(i + (int)z - 1, j + (int)x - 1)];
             }
         }
         return chunkArr;

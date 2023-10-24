@@ -9,48 +9,47 @@ public class player : MonoBehaviour
     bool displayUI = false;
     public GameObject playerModel;
     public GameObject UI;
-    Tile currentTile;
     Chunk chunk;
-    Chunk[][] surroundingChunks;
-    Tile[][] surroundingTiles;
+    Chunk[,] surroundingChunks;
+    Tile[,] surroundingTiles;
     Inventory inv;
+    Tile tile;
     Dictionary<(int x, int y), Chunk> chunkDict;
+
     public float speed = .2f;
 
     void Start()
     {
         chunkDict = transform.parent.GetComponent<World>().chunkDict;
         entityData = EntityIndex.index["player"];
-        initGameObject();
         UI.GetComponent<UIManager>().init(chunkDict);
         transform.position = getRandomDirtTile(2);
+        playerModel.transform.GetComponent<Renderer>().material.color = entityData.color;
     }
 
     void Update()
     {
-        float x = transform.position.x / World.chunkSize;
-        float z = transform.position.z / World.chunkSize;
+        float Chunkx = transform.position.x / World.chunkSize;
+        float Chunkz = transform.position.z / World.chunkSize;
 
+        float Tilex = transform.position.x % World.chunkSize; //should be optomized
+        float Tilez = transform.position.z % World.chunkSize; //might actually be ok
 
-        if (surroundingChunks != null)
-        {
-            foreach (Chunk[] c in surroundingChunks)
-            {
-                foreach (Chunk k in c)
-                {
-                    k.highlight(new Color(0, 0, 0));
-                }
-            }
-        }
-        surroundingChunks = Entity.surroundingChunks(chunkDict, x, z);
-        chunk = surroundingChunks[1][1];
+        surroundingChunks = Entity.surroundingChunks(chunkDict, Chunkx, Chunkz);
         surroundingTiles = Entity.surroundingTiles(surroundingChunks);
+
+        if (chunk != null)
+        {
+            chunk.highlight(new Color(0, 0, 0));
+        }
+
+        chunk = surroundingChunks[1, 1];
+        tile = surroundingTiles[(int)(Tilex) + World.chunkSize, (int)(Tilez) + World.chunkSize];
+        // tile.gameObject.GetComponent<Renderer>().material.color = new Color(1f, 0, 0);
+        // highlightSurroundingChunks();
         movePlayer();
         chunk.highlight(Color.red);
-    }
-    void initGameObject()
-    {
-        playerModel.transform.GetComponent<Renderer>().material.color = entityData.color;
+        InputManager.interactWithTile(tile);
     }
 
     void movePlayer()
@@ -58,49 +57,38 @@ public class player : MonoBehaviour
         float x = transform.position.x % World.chunkSize; //should be optomized
         float z = transform.position.z % World.chunkSize; //might actually be ok
 
-        tileShift(x, z);
+        // tileShift(x, z);//updates playerTile
         Vector3 input = InputManager.playerMovementInputs() * speed;
-        if (surroundingTiles[(int)(x + input.x) + World.chunkSize][(int)(z + input.z) + World.chunkSize].tileData.walkable)
+        if (
+            surroundingTiles[
+                (int)(x + input.x) + World.chunkSize,
+                (int)(z + input.z) + World.chunkSize
+            ]
+                .tileData
+                .walkable
+        )
         {
             transform.position += input;
         }
-
     }
 
-    void chunkShift(float x, float z)
-    {
-        Chunk previousChunk = null;
-        if (chunk != null)
-        {
-            previousChunk = chunk;
-        }
-        chunk = chunkDict[((int)z, (int)x)];
+    void interactWithBlock() { }
 
-        if (previousChunk != chunk)
+    void highlightSurroundingChunks(Color color)
+    {
+        if (surroundingChunks != null)
         {
-            if (previousChunk != null)
+            for (int i = 0; i < surroundingChunks.GetLength(0); i++)
             {
-                previousChunk.highlight(new Color(0, 0, 0));
+                for (int j = 0; j < surroundingChunks.GetLength(1); j++)
+                {
+                    surroundingChunks[i, j].highlight(color);
+                }
             }
         }
     }
 
-    void tileShift(float x, float z)
-    {
-        if (x < 0)
-        {
-            x = x + World.chunkSize - 1;
-        }
-        if (z < 0)
-        {
-            z = z + +World.chunkSize - 1;
-        }
-        currentTile = chunk.tileArr[(int)x][(int)z];
-        currentTile.gameObject.GetComponent<Renderer>().material.color = currentTile.tileData.color;
-    }
-
-
-    Vector3 getRandomDirtTile(int chunks)
+    Vector3 getRandomDirtTile(int chunks) //probably remove this at some point
     {
         List<Vector3> dirtList = new List<Vector3>();
         for (int i = 0; i < chunks; i++)
